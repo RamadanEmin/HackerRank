@@ -1,0 +1,47 @@
+class Queue {
+    constructor() {
+      this.stackOne = new Array();
+      this.stackTwo = new Array();
+    }
+  
+    enqueue(data) {
+      this.stackOne.push(parseInt(data));
+    }
+  
+    dequeue() {
+      this.shiftElements();
+      this.stackTwo.pop();
+    }
+  
+    print() {
+      this.shiftElements();
+      console.log(this.stackTwo[this.stackTwo.length - 1]);
+    }
+  
+    shiftElements() {
+      if (this.stackTwo.length === 0) {
+        while (this.stackOne.length > 0) {
+          this.stackTwo.push(this.stackOne.pop());
+        }
+      }
+    }
+  }
+  
+  function processData(input, queue) {
+    input = input.split("\n");
+    let queries = +input[0];
+  
+    for (let i = 1; i <= queries; i++) {
+      let q = input[i].split(" ");
+      if (q.length > 1) {
+        let element = q[1];
+        queue.enqueue(element);
+      } else {
+        if (q[0] == "2") {
+          queue.dequeue();
+        } else {
+          queue.print();
+        }
+      }
+    }
+  }
